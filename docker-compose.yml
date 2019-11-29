@@ -1,0 +1,23 @@
+version: '3.6'
+services:
+  php: 
+    image: php:7.2-fpm-alpine
+  nginx:
+    build: 
+      context: ./nginx
+    working_dir: /usr/share/nginx/html
+    volumes:
+      - ./lumen:/usr/share/nginx/html
+    ports:
+      - "3100:80"
+    expose:
+      - 80
+      - 443
+    links:
+      - php
+    environment:
+      - UID=nginx
+      - GID=nginx
+
+volumes:
+  lumen:
